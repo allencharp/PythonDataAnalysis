@@ -33,7 +33,7 @@ print(top_counts(counts))
 
 from pandas import DataFrame, Series
 import pandas as pd
-import numpy
+import numpy as np
 frame = DataFrame(records)
 print(frame['tz'][:10])
 
@@ -44,4 +44,10 @@ tz_counts = clean_tz.value_counts()
 print(tz_counts[:10])
 plt = tz_counts[:10].plot(kind='barh',rot=0)
 
-a = 1
+results = Series(x.split()[0] for x in frame.a.dropna())
+print(results[:5])
+print(results.value_counts()[:5])
+
+cframe = frame[frame.a.notnull()]
+operation_system = np.where(cframe['a'].str.contains('Windows'),'Windows', 'Not Windows')
+print(operation_system[:5])
