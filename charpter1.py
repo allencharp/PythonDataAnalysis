@@ -51,3 +51,13 @@ print(results.value_counts()[:5])
 cframe = frame[frame.a.notnull()]
 operation_system = np.where(cframe['a'].str.contains('Windows'),'Windows', 'Not Windows')
 print(operation_system[:5])
+
+by_tz_os = cframe.groupby(['tz', operation_system])
+agg_counts = by_tz_os.size().unstack().fillna(0)
+print(agg_counts[:10])
+
+indexer = agg_counts.sum(1).argsort()
+print(indexer[:10])
+
+count_subset = agg_counts.take(indexer)
+print(count_subset[-5:])
